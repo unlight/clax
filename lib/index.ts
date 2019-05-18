@@ -5,40 +5,40 @@ import StoreManager from './StoreManager'
 
 
 export function connect(component: React.ComponentClass, storeSourceClasses: any[]): React.ComponentClass {
-  const magicalStores = storeSourceClasses.map(storeSourceClass => StoreManager.makeStoreFrom(storeSourceClass))
+    const magicalStores = storeSourceClasses.map(storeSourceClass => StoreManager.makeStoreFrom(storeSourceClass))
 
-  const storeProps: {[key: string]: MagicalStore} = {}
-  for (let [storeSourceClass, magicalStore] of _.zip(storeSourceClasses, magicalStores)) {
-    storeProps[
-      storeSourceClass.name[0].toLowerCase() + storeSourceClass.name.substring(1)
-    ] = magicalStore
-  }
-
-  return class extends React.Component {
-    constructor(props: any) {
-      super(props)
-
-      this.onStoreUpdate = this.onStoreUpdate.bind(this)
+    const storeProps: { [key: string]: MagicalStore } = {}
+    for (let [storeSourceClass, magicalStore] of _.zip(storeSourceClasses, magicalStores)) {
+        storeProps[
+            storeSourceClass.name[0].toLowerCase() + storeSourceClass.name.substring(1)
+        ] = magicalStore
     }
 
-    componentDidMount() {
-      for (let magicalStore of magicalStores) {
-        magicalStore.notifier.addListener(this.onStoreUpdate)
-      }
-    }
+    return class extends React.Component {
+        constructor(props: any) {
+            super(props)
 
-    componentWillUnmount() {
-      for (let magicalStore of magicalStores) {
-        magicalStore.notifier.removeListener(this.onStoreUpdate)
-      }
-    }
+            this.onStoreUpdate = this.onStoreUpdate.bind(this)
+        }
 
-    render() {
-      return React.createElement(component, {...storeProps, ..._.omit(this.props, 'children')}, this.props.children)
-    }
+        componentDidMount() {
+            for (let magicalStore of magicalStores) {
+                magicalStore.notifier.addListener(this.onStoreUpdate)
+            }
+        }
 
-    onStoreUpdate() {
-      this.forceUpdate()
+        componentWillUnmount() {
+            for (let magicalStore of magicalStores) {
+                magicalStore.notifier.removeListener(this.onStoreUpdate)
+            }
+        }
+
+        render() {
+            return React.createElement(component, { ...storeProps, ..._.omit(this.props, 'children') }, this.props.children)
+        }
+
+        onStoreUpdate() {
+            this.forceUpdate()
+        }
     }
-  }
 }

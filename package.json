@@ -3,10 +3,27 @@
   "version": "0.1.4",
   "description": "A state management library focusing on to reduce learning cost",
   "main": "dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "start": "webpack-dev-server",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "tsc"
+    "test:w": "jest --runInBand --watch",
+    "test:r": "jest --runInBand --verbose",
+    "test:d": "node --inspect-brk node_modules/jest/bin/jest.js --runInBand --testMatch \"<rootDir>/src/**/*.spec.ts*\"",
+    "test:cov": "npm run test:r -- --collectCoverage",
+    "tscheck": "echo tscheck... && tsc --noEmit",
+    "tscheck:w": "npm run tscheck -- --watch",
+    "test": "npm run test:cov",
+    "prepush": "npm run test && npm run build",
+    "tsclint": "tsc --noEmit --strict --forceConsistentCasingInFileNames --noImplicitReturns --noImplicitThis --noUnusedLocals --noUnusedParameters",
+    "tsclint:w": "npm run tsclint -- --watch",
+    "eslint:w": "sh Taskfile eslint_watch",
+    "eslint": "eslint src --ext ts",
+    "eslint:fix": "eslint src --ext ts --fix",
+    "tslint:fix": "tslint -p tsconfig.json --fix",
+    "lint:w": "run-p tsclint:w eslint:w",
+    "semantic-release": "semantic-release",
+    "prepublishOnly": "sed -i -e 's/devDependencies/_devDependencies/g' package.json",
+    "build": "sh Taskfile build"
   },
   "repository": {
     "type": "git",
@@ -16,7 +33,10 @@
     "react",
     "flux"
   ],
-  "author": "tock203",
+  "author": [
+    "tock203",
+    "Roman"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/unlight/clax/issues"
@@ -24,24 +44,33 @@
   "homepage": "https://github.com/unlight/clax#readme",
   "dependencies": {
     "deep-diff": "^0.3.4",
-    "lodash": "^4.17.4",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "lodash": "^4.17.4"
+  },
+  "peerDependencies": {
+    "react": ">16",
+    "react-dom": ">16"
   },
   "devDependencies": {
+    "@angular/compiler": "^7.2.15",
+    "@angular/compiler-cli": "^7.2.15",
+    "@angular/core": "^7.2.15",
     "@types/deep-diff": "0.0.31",
     "@types/lodash": "^4.14.91",
     "@types/react": "^16.0.31",
     "@types/react-dom": "^16.0.3",
     "@types/react-hyperscript": "^3.0.0",
     "awesome-typescript-loader": "^3.4.1",
+    "html-loader": "0.5.5",
     "html-webpack-plugin": "^2.30.1",
+    "ng-packagr": "^5.2.0",
     "source-map-loader": "^0.2.3",
     "ts-node": "^4.0.2",
+    "tsickle": "^0.35.0",
     "typescript": "^2.6.2",
     "webpack": "^3.10.0",
-    "html-loader": "0.5.5",
+    "@types/jest": "^24.0.12",
+    "jest": "24.7.1",
+    "ts-jest": "^24.0.2",
     "webpack-dev-server": "^2.9.7"
-  },
-  "types": "./dist/index.d.ts"
+  }
 }
