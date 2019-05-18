@@ -1,6 +1,6 @@
 {
   "name": "react-clax",
-  "version": "0.1.4",
+  "version": "0.0.0-dev",
   "description": "A state management library focusing on to reduce learning cost",
   "main": "dist/index.js",
   "types": "./dist/index.d.ts",
@@ -72,7 +72,7 @@
     "ts-jest": "24.0.2",
     "ts-node": "8.1.0",
     "tsickle": "0.35.0",
-    "typescript": "3.4.5",
+    "typescript": "3.2.X",
     "webpack": "4.31.0",
     "webpack-cli": "3.3.2",
     "webpack-dev-server": "3.4.1"

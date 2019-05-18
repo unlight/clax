@@ -16,10 +16,10 @@
     "jsx": "react",
     "baseUrl": ".",
     "paths": {
-      "react-clax": ["lib/index"]
+      "react-clax": ["src/index"]
     }
   },
   "include": [
-    "lib/**/*.ts"
+    "src/**/*.ts"
   ]
 }
