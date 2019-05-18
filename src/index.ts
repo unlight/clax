@@ -7,7 +7,7 @@ import StoreManager from './StoreManager';
 export function connect(component: React.ComponentClass, storeSourceClasses: any[]): React.ComponentClass {
     const magicalStores = storeSourceClasses.map(storeSourceClass => StoreManager.makeStoreFrom(storeSourceClass))
 
-    const storeProps: { [key: string]: MagicalStore } = {}
+    const storeProps: { [key: string]: MagicalStore | undefined } = {};
     for (let [storeSourceClass, magicalStore] of _.zip(storeSourceClasses, magicalStores)) {
         storeProps[
             storeSourceClass.name[0].toLowerCase() + storeSourceClass.name.substring(1)

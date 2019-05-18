@@ -1,7 +1,8 @@
 import * as _ from 'lodash';
 
 export default class Notifier {
-    private listeners: (() => void)[] = []
+
+    private listeners: (() => void)[] = [];
 
     addListener(listener: () => void) {
         this.listeners.push(listener)

@@ -6,6 +6,11 @@ hello() {
     echo args: "$1" "$2" "$3"
 }
 
+dev2() {
+    npm run dev 2>&1 &
+    npm run test:w 2>&1 &
+}
+
 build() {
     ng-packagr
     # mv src/lib.metadata.json dist

@@ -24,9 +24,9 @@ module.exports = {
     ],
     globals: {
         'ts-jest': {
-            diagnostics: false,
+            diagnostics: true,
             tsConfig: {
-                target: 'esnext',
+                "esModuleInterop": true,
             }
         },
     }
