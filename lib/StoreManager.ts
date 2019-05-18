@@ -1,7 +1,7 @@
-import MagicalStore from './MagicalStore'
-
+import MagicalStore from './MagicalStore';
 
 export default new class StoreManager {
+
     private instances = new Map<any, MagicalStore>()
 
     makeStoreFrom(storeSourceClass: any): MagicalStore {

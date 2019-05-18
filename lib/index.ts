@@ -1,7 +1,7 @@
-import * as React from 'react'
-import * as _ from 'lodash'
-import MagicalStore from './MagicalStore'
-import StoreManager from './StoreManager'
+import * as React from 'react';
+import * as _ from 'lodash';
+import MagicalStore from './MagicalStore';
+import StoreManager from './StoreManager';
 
 
 export function connect(component: React.ComponentClass, storeSourceClasses: any[]): React.ComponentClass {

@@ -1,6 +1,7 @@
-import * as React from 'react'
-import * as ReactDOM from 'react-dom'
-import * as clax from 'react-clax'
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+// @ts-ignore
+import * as clax from 'react-clax';
 
 class CounterStore {
     count = 0;
@@ -40,4 +41,4 @@ class Counter extends React.Component<PropTypes> {
 
 const ConnectedCounter = clax.connect(Counter, [CounterStore]);
 
-ReactDOM.render(<ConnectedCounter />, document.body);
+ReactDOM.render(<ConnectedCounter />, document.body.firstElementChild);

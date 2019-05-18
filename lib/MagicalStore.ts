@@ -1,10 +1,10 @@
-import { diff } from 'deep-diff'
-import * as _ from 'lodash'
-import Notifier from './Notifier'
-import StoreManager from './StoreManager'
-
+import { diff } from 'deep-diff';
+import * as _ from 'lodash';
+import Notifier from './Notifier';
+import StoreManager from './StoreManager';
 
 export default class MagicalStore {
+
     private state: { [key: string]: any } = {}
     private actionCallDepth = 0
     public notifier = new Notifier
