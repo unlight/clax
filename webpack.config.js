@@ -21,10 +21,11 @@ module.exports = {
         use: 'awesome-typescript-loader'
       },
       {
-        test: /\.pug$/,
-        exclude: /node_modules/,
-        use: 'pug-loader'
-      }
+        test: /index\.html$/,
+        use: [
+          { loader: 'html-loader', options: { minimize: false } },
+        ],
+      },
     ]
   },
   resolve: {
@@ -39,7 +40,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './examples/counter/index.pug',
+      template: './examples/counter/index.html',
       filename: 'counter.html'
     })
   ]
