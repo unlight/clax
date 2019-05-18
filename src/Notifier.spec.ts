@@ -1,4 +1,4 @@
-import Notifier from './Notifier';
+import Notifier from './notifier';
 
 describe('Notifier', () => {
 
@@ -17,5 +17,13 @@ describe('Notifier', () => {
         n.addListener(listener);
         n.notify();
         expect(listener).toHaveBeenCalledTimes(1);
+    });
+
+    it('removeListener', () => {
+        const listener = jest.fn();
+        n.addListener(listener);
+        n.removeListener(listener);
+        n.notify();
+        expect(listener).not.toHaveBeenCalled();
     });
 });

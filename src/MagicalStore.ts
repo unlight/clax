@@ -1,6 +1,6 @@
 import { diff } from 'deep-diff';
 import * as _ from 'lodash';
-import Notifier from './Notifier';
+import Notifier from './notifier';
 import StoreManager from './StoreManager';
 
 export default class MagicalStore {
