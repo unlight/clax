@@ -40,12 +40,12 @@ export default class MagicalStore<T = any> {
 
             (this as any)[actionName] = function(this: MagicalStore, ...args: any[]) {
                 if (!isSync || 0 >= this.actionCallDepth) {
-                    console.debug(
-                        'clax:',
-                        `${isSync ? 'Sync' : 'Async'}ActionInvoked:`,
-                        `${this.source.constructor.name}#${actionName}`,
-                        args
-                    )
+                    // console.debug(
+                    //     'clax:',
+                    //     `${isSync ? 'Sync' : 'Async'}ActionInvoked:`,
+                    //     `${this.source.constructor.name}#${actionName}`,
+                    //     // args
+                    // )
                 }
 
                 let oldState;
@@ -67,7 +67,7 @@ export default class MagicalStore<T = any> {
 
                 if (isSync && 0 >= this.actionCallDepth) {
                     const changes = diff(oldState, this.state);
-                    console.debug('clax:', 'StateChanged:', this.source.constructor.name, changes, storeManager.getWholeState());
+                    // console.debug('clax:', 'StateChanged:', this.source.constructor.name, changes, storeManager.getWholeState());
 
                     this.notifier.notify();
                 }

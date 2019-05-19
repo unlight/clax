@@ -20,27 +20,27 @@ export function connect(component: React.ComponentClass, storeSourceClasses: Con
     return class extends React.Component {
         constructor(props: any) {
             super(props)
-            this.onStoreUpdate = this.onStoreUpdate.bind(this)
+            this.onStoreUpdate = this.onStoreUpdate.bind(this);
         }
 
         componentDidMount() {
             for (let magicalStore of magicalStores) {
-                magicalStore.notifier.addListener(this.onStoreUpdate)
+                magicalStore.notifier.addListener(this.onStoreUpdate);
             }
         }
 
         componentWillUnmount() {
             for (let magicalStore of magicalStores) {
-                magicalStore.notifier.removeListener(this.onStoreUpdate)
+                magicalStore.notifier.removeListener(this.onStoreUpdate);
             }
         }
 
         render() {
-            return React.createElement(component, { ...storeProps, ..._.omit(this.props, 'children') }, this.props.children)
+            return React.createElement(component, { ...storeProps, ..._.omit(this.props, 'children') }, this.props.children);
         }
 
         onStoreUpdate() {
-            this.forceUpdate()
+            this.forceUpdate();
         }
     }
 }

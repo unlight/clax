@@ -3,22 +3,16 @@ import { connect } from '.';
 import { Component } from 'react';
 import * as ReactDOM from 'react-dom';
 import * as React from 'react';
-import * as testUtils from 'react-dom/test-utils';
+import { render, fireEvent, cleanup, waitForElement, waitForDomChange } from 'react-testing-library';
+import 'jest-dom/extend-expect';
 
 class TestComponent extends Component<any, any> {
     render() {
-        console.log("this.props", this.props.testStore);
         return <>
-            <a onClick={this.props.testStore.inc}>+1</a>
-            <p>{this.props.testStore.count}</p>
+            <a data-testid="btn" onClick={this.props.testStore.inc}>btn</a>
+            <a data-testid="doubleInc" onClick={this.props.testStore.doubleInc}>doubleInc</a>
+            <main>{this.props.testStore.count}</main>
         </>;
-    }
-}
-
-class TestStore {
-    count = 0;
-    inc() {
-        this.count += 1;
     }
 }
 
@@ -27,7 +21,45 @@ it('smoke test', () => {
 });
 
 it('connect', () => {
-    const ConnectedComponent = connect(TestComponent, [TestStore]);
+    const ConnectedComponent = connect(TestComponent, [class TestStore { }]);
     expect(ConnectedComponent.prototype.componentDidMount).toBeInstanceOf(Function);
     expect(ConnectedComponent.prototype.componentWillUnmount).toBeInstanceOf(Function);
+});
+
+afterEach(cleanup);
+
+it('connected component test action inc', async () => {
+    class TestStore {
+        count = 0;
+        inc() {
+            this.count += 1;
+        }
+    }
+    const ConnectedComponent = connect(TestComponent, [TestStore]);
+    const { container, getByTestId } = render(<ConnectedComponent />);
+    fireEvent.click(getByTestId('btn'));
+    expect(container).toHaveTextContent('1');
+});
+
+it('async doubleInc', async () => {
+    // jest.setTimeout(10_000);
+    jest.useFakeTimers();
+    class TestStore {
+        count = 0;
+        inc() {
+            this.count++;
+        }
+        async doubleInc() {
+            this.inc();
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            this.inc();
+        }
+    }
+    const ConnectedComponent = connect(TestComponent, [TestStore]);
+    const { container, getByTestId } = render(<ConnectedComponent />);
+    fireEvent.click(getByTestId('doubleInc'));
+    jest.runAllTimers();
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    // await waitForDomChange({ container: container.querySelector('main')! });
+    expect(container.querySelector('main')).toHaveTextContent('2');
 });
