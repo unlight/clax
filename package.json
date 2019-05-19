@@ -1,5 +1,5 @@
 {
-  "name": "react-clax",
+  "name": "react-claxx",
   "version": "0.0.0-dev",
   "description": "A state management library focusing on to reduce learning cost",
   "main": "dist/index.js",

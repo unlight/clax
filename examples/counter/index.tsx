@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 // @ts-ignore
-import * as clax from 'react-clax';
+import * as clax from 'react-claxx';
 
 class CounterStore {
     count = 0;

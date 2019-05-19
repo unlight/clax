@@ -1,11 +1,11 @@
 import * as React from 'react';
 import * as _ from 'lodash';
-import MagicalStore from './MagicalStore';
-import StoreManager from './StoreManager';
+import MagicalStore from './magical-store';
+import storeManager from './store-manager';
 
 
 export function connect(component: React.ComponentClass, storeSourceClasses: any[]): React.ComponentClass {
-    const magicalStores = storeSourceClasses.map(storeSourceClass => StoreManager.makeStoreFrom(storeSourceClass))
+    const magicalStores = storeSourceClasses.map(storeSourceClass => storeManager.makeStoreFrom(storeSourceClass))
 
     const storeProps: { [key: string]: MagicalStore | undefined } = {};
     for (let [storeSourceClass, magicalStore] of _.zip(storeSourceClasses, magicalStores)) {

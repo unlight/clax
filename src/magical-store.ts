@@ -1,7 +1,7 @@
 import { diff } from 'deep-diff';
 import * as _ from 'lodash';
 import Notifier from './notifier';
-import StoreManager from './StoreManager';
+import storeManager from './store-manager';
 
 export default class MagicalStore {
 
@@ -67,7 +67,7 @@ export default class MagicalStore {
 
                 if (isSync && 0 >= this.actionCallDepth) {
                     const changes = diff(oldState, this.state)
-                    console.debug('clax:', 'StateChanged:', this.source.constructor.name, changes, StoreManager.getWholeState())
+                    console.debug('clax:', 'StateChanged:', this.source.constructor.name, changes, storeManager.getWholeState())
 
                     this.notifier.notify()
                 }
