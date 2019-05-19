@@ -42,8 +42,6 @@ it('connected component test action inc', async () => {
 });
 
 it('async doubleInc', async () => {
-    // jest.setTimeout(10_000);
-    jest.useFakeTimers();
     class TestStore {
         count = 0;
         inc() {
@@ -51,15 +49,13 @@ it('async doubleInc', async () => {
         }
         async doubleInc() {
             this.inc();
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            await new Promise(resolve => setTimeout(resolve, 100));
             this.inc();
         }
     }
     const ConnectedComponent = connect(TestComponent, [TestStore]);
     const { container, getByTestId } = render(<ConnectedComponent />);
     fireEvent.click(getByTestId('doubleInc'));
-    jest.runAllTimers();
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    // await waitForDomChange({ container: container.querySelector('main')! });
+    await new Promise(resolve => setTimeout(resolve, 100));
     expect(container.querySelector('main')).toHaveTextContent('2');
 });
