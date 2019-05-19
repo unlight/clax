@@ -2,16 +2,19 @@ import * as React from 'react';
 import * as _ from 'lodash';
 import MagicalStore from './magical-store';
 import storeManager from './store-manager';
+import { ConstructorFunction } from 'simplytyped';
 
+export function connect(component: React.ComponentClass, storeSourceClasses: ConstructorFunction<any>[]): React.ComponentClass {
 
-export function connect(component: React.ComponentClass, storeSourceClasses: any[]): React.ComponentClass {
-    const magicalStores = storeSourceClasses.map(storeSourceClass => storeManager.makeStoreFrom(storeSourceClass))
-
+    const magicalStores = storeSourceClasses.map(storeSourceClass => storeManager.makeStoreFrom(storeSourceClass));
     const storeProps: { [key: string]: MagicalStore | undefined } = {};
     for (let [storeSourceClass, magicalStore] of _.zip(storeSourceClasses, magicalStores)) {
-        storeProps[
-            storeSourceClass.name[0].toLowerCase() + storeSourceClass.name.substring(1)
-        ] = magicalStore
+        if (!storeSourceClass) {
+            throw new TypeError(`Expecting non-nullable storeSourceClass`);
+        }
+        const className: string = storeSourceClass.name;
+        const name = className[0].toLowerCase() + className.substring(1);
+        storeProps[name] = magicalStore;
     }
 
     return class extends React.Component {
