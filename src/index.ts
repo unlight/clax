@@ -20,7 +20,6 @@ export function connect(component: React.ComponentClass, storeSourceClasses: Con
     return class extends React.Component {
         constructor(props: any) {
             super(props)
-
             this.onStoreUpdate = this.onStoreUpdate.bind(this)
         }
 
