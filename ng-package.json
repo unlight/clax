@@ -1,6 +1,6 @@
 {
   "whitelistedNonPeerDependencies": [
-    "."
+    "lodash", "deep-diff"
   ],
   "lib": {
     "entryFile": "src/index.ts"
