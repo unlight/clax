@@ -1,14 +1,16 @@
 import * as React from 'react';
-import * as _ from 'lodash';
 import MagicalStore from './magical-store';
 import storeManager from './store-manager';
 import { ConstructorFunction } from 'simplytyped';
+
+const zip = <T, V>(a: T[], b: V[]) => a.slice(0, b.length).map((x, i) => [x, b[i]]);
+const omit = <T>(obj: T, props: (keyof T)[]) => props.reduce((newObj: any, val: any) => (({ [val]: dropped, ...rest }) => rest)(newObj), obj);
 
 export function connect(component: React.ComponentClass, storeSourceClasses: ConstructorFunction<any>[]): React.ComponentClass {
 
     const magicalStores = storeSourceClasses.map(storeSourceClass => storeManager.makeStoreFrom(storeSourceClass));
     const storeProps: { [key: string]: MagicalStore | undefined } = {};
-    for (let [storeSourceClass, magicalStore] of _.zip(storeSourceClasses, magicalStores)) {
+    for (let [storeSourceClass, magicalStore] of zip(storeSourceClasses, magicalStores)) {
         if (!storeSourceClass) {
             throw new TypeError(`Expecting non-nullable storeSourceClass`);
         }
@@ -36,7 +38,7 @@ export function connect(component: React.ComponentClass, storeSourceClasses: Con
         }
 
         render() {
-            return React.createElement(component, { ...storeProps, ..._.omit(this.props, 'children') }, this.props.children);
+            return React.createElement(component, { ...storeProps, ...omit(this.props, ['children']) }, this.props.children);
         }
 
         onStoreUpdate() {
