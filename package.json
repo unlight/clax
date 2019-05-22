@@ -44,8 +44,7 @@
     "url": "https://github.com/unlight/claxx/issues"
   },
   "homepage": "https://github.com/unlight/claxx#readme",
-  "dependencies": {
-  },
+  "dependencies": {},
   "peerDependencies": {
     "react": "16",
     "react-dom": "16"
@@ -57,11 +56,11 @@
     "@types/deep-diff": "^1.0.0",
     "@types/html-webpack-plugin": "^3.2.0",
     "@types/jest": "^24.0.13",
-    "@types/lodash": "^4.14.129",
-    "@types/react": "^16.8.17",
+    "@types/lodash": "^4.14.130",
+    "@types/react": "^16.8.18",
     "@types/react-dom": "^16.8.4",
     "@types/react-hyperscript": "^3.0.4",
-    "@types/webpack": "^4.4.31",
+    "@types/webpack": "^4.4.32",
     "@types/webpack-dev-server": "^3.1.5",
     "awesome-typescript-loader": "^5.2.1",
     "html-loader": "^0.5.5",
@@ -78,8 +77,12 @@
     "ts-node": "^8.1.0",
     "tsickle": "^0.35.0",
     "typescript": "3.2",
-    "webpack": "^4.31.0",
+    "webpack": "^4.32.1",
     "webpack-cli": "^3.3.2",
+    "semantic-release": "^15.13.12",
+    "@semantic-release/changelog": "^3.0.2",
+    "@semantic-release/git": "^7.0.8",
+    "@semantic-release/npm": "^5.1.7",
     "webpack-dev-server": "^3.4.1"
   },
   "config": {
