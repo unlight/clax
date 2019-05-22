@@ -11,7 +11,7 @@ class TestComponent extends Component<any, any> {
         return <>
             <a data-testid="btn" onClick={this.props.testStore.inc}>btn</a>
             <a data-testid="doubleInc" onClick={this.props.testStore.doubleInc}>doubleInc</a>
-            <main>{this.props.testStore.count}</main>
+            <main id="count">{this.props.testStore.count}</main>
         </>;
     }
 }
@@ -49,13 +49,15 @@ it('async doubleInc', async () => {
         }
         async doubleInc() {
             this.inc();
-            await new Promise(resolve => setTimeout(resolve, 100));
+            await new Promise(resolve => setTimeout(resolve, 1000));
             this.inc();
         }
     }
+    jest.useFakeTimers();
     const ConnectedComponent = connect(TestComponent, [TestStore]);
     const { container, getByTestId } = render(<ConnectedComponent />);
     fireEvent.click(getByTestId('doubleInc'));
-    await new Promise(resolve => setTimeout(resolve, 100));
-    expect(container.querySelector('main')).toHaveTextContent('2');
+    jest.runAllTimers();
+    await Promise.resolve();
+    expect(container.querySelector('#count')).toHaveTextContent('2');
 });

@@ -32,7 +32,8 @@
   },
   "keywords": [
     "react",
-    "flux"
+    "flux",
+    "state-management"
   ],
   "author": [
     "tock203",
