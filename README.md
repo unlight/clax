@@ -1,13 +1,13 @@
-# clax
+# claxx
 A state management library focusing on to reduce boilerplate code and learning cost
 
 ## Install
 ```sh
-npm install react-clax
+npm install react-claxx
 ```
 
 ## Examples
-See https://github.com/tock203/clax/tree/master/examples
+See https://github.com/unlight/claxx/tree/master/examples
 
 ## Requirements
 - ES >= 2017
