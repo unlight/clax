@@ -6,6 +6,14 @@ hello() {
     echo args: "$1" "$2" "$3"
 }
 
+remark_run() {
+    node -r ts-node/register/transpile-only node_modules/remark-cli/cli.js readme.md "$@"
+}
+
+remark_output() {
+    remark_run --output
+}
+
 dev2() {
     npm run dev 2>&1 &
     npm run test:w 2>&1 &
