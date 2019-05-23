@@ -1,12 +1,10 @@
-import * as lib from './index';
 import { connect } from '.';
-import { Component } from 'react';
 import * as ReactDOM from 'react-dom';
 import * as React from 'react';
 import { render, fireEvent, cleanup, waitForElement, waitForDomChange } from 'react-testing-library';
 import 'jest-dom/extend-expect';
 
-class TestComponent extends Component<any, any> {
+class TestComponent extends React.Component<any, any> {
     render() {
         return <>
             <p data-testid="prop1">{this.props.prop1}</p>
@@ -17,10 +15,6 @@ class TestComponent extends Component<any, any> {
         </>;
     }
 }
-
-it('smoke test', () => {
-    expect(lib).toBeDefined();
-});
 
 it('connect', () => {
     const ConnectedComponent = connect(TestComponent, [class TestStore { }]);

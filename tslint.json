@@ -43,6 +43,9 @@
     "strict-boolean-expressions": false,
     "no-unsafe-any": false,
     "no-backbone-get-set-outside-model": false,
+    "no-implicit-dependencies": false,
+    "no-default-export": false,
+    "completed-docs": false,
     ".": false
   }
 }

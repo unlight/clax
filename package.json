@@ -13,7 +13,7 @@
     "test:cov": "npm run test:r -- --collectCoverage",
     "tscheck": "echo tscheck... && tsc --noEmit",
     "tscheck:w": "npm run tscheck -- --watch",
-    "test": "npm run eslint && npm run test:cov",
+    "test": "npm run tscheck && npm run eslint && npm run test:cov",
     "prepush": "npm run test && npm run build",
     "tsclint": "tsc --noEmit --strict --forceConsistentCasingInFileNames --noImplicitReturns --noImplicitThis --noUnusedLocals --noUnusedParameters",
     "tsclint:w": "npm run tsclint -- --watch",

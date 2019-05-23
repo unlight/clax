@@ -1,11 +1,11 @@
 import MagicalStore from './magical-store';
-import { ConstructorFunction } from 'simplytyped';
+import { ConstructorFor } from 'simplytyped';
 
 class StoreManager {
 
-    private readonly instances = new Map<ConstructorFunction<any>, (InstanceType<ConstructorFunction<any>> & MagicalStore)>();
+    private readonly instances = new Map<ConstructorFor<object>, (InstanceType<ConstructorFor<any>> & MagicalStore)>();
 
-    makeStoreFrom<T extends object = any>(storeSourceClass: ConstructorFunction<T>) {
+    makeStoreFrom<T extends object>(storeSourceClass: ConstructorFor<T>) {
         let magicalStore: MagicalStore<T> & T = this.instances.get(storeSourceClass);
         if (magicalStore === undefined) {
             magicalStore = <any>new MagicalStore(new storeSourceClass());

@@ -1,10 +1,11 @@
 import Notifier from './notifier';
 import storeManager from './store-manager';
+import { PlainObject } from 'simplytyped';
 
 export default class MagicalStore<T = any> {
     public notifier = new Notifier();
 
-    private readonly state: { [key: string]: any } = {};
+    private readonly state: PlainObject = {};
     private actionCallDepth = 0;
 
     constructor(private readonly source: T) {
@@ -36,7 +37,7 @@ export default class MagicalStore<T = any> {
             const action = (this.source as any)[actionName].bind(this);
             const isSync = action.constructor.name !== 'AsyncFunction';
 
-            (this as any)[actionName] = function(this: MagicalStore, ...arguments_: any[]) {
+            (this as any)[actionName] = (...arguments_: any[]) => {
                 if (!isSync || 0 >= this.actionCallDepth) {
                     // console.debug(
                     //     'claxx:',
@@ -67,7 +68,7 @@ export default class MagicalStore<T = any> {
                     // console.debug('claxx:', 'StateChanged:', this.source.constructor.name, changes, storeManager.getWholeState());
                     this.notifier.notify();
                 }
-            }.bind(this);
+            };
         }
     }
 }
