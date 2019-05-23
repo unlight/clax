@@ -3,7 +3,7 @@ import { ConstructorFunction } from 'simplytyped';
 
 class StoreManager {
 
-    private instances = new Map<ConstructorFunction<any>, (InstanceType<ConstructorFunction<any>> & MagicalStore)>();
+    private readonly instances = new Map<ConstructorFunction<any>, (InstanceType<ConstructorFunction<any>> & MagicalStore)>();
 
     makeStoreFrom<T extends object = any>(storeSourceClass: ConstructorFunction<T>) {
         let magicalStore: MagicalStore<T> & T = this.instances.get(storeSourceClass);

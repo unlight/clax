@@ -64,7 +64,7 @@ it('async doubleInc', async () => {
     expect(container.querySelector('#count')).toHaveTextContent('2');
 });
 
-it('props children should be omited',async () => {
+it('props children should be omited', async () => {
     class TestStore { }
     const ConnectedComponent = connect(TestComponent, [TestStore]);
     const { container, getByTestId  } = render(<ConnectedComponent prop1="Crossbow">hello</ConnectedComponent>);

@@ -2,12 +2,12 @@ import Notifier from './notifier';
 import storeManager from './store-manager';
 
 export default class MagicalStore<T = any> {
-
-    private state: { [key: string]: any } = {};
-    private actionCallDepth = 0;
     public notifier = new Notifier();
 
-    constructor(private source: T) {
+    private readonly state: { [key: string]: any } = {};
+    private actionCallDepth = 0;
+
+    constructor(private readonly source: T) {
         this.configureState();
         this.configureAction();
     }
@@ -18,7 +18,7 @@ export default class MagicalStore<T = any> {
 
     private configureState() {
         const stateKeys = Object.keys(this.source);
-        for (let stateKey of stateKeys) {
+        for (const stateKey of stateKeys) {
             this.state[stateKey] = JSON.parse(JSON.stringify((this.source as any)[stateKey]));
 
             Object.defineProperty(this, stateKey, {
@@ -32,7 +32,7 @@ export default class MagicalStore<T = any> {
 
     private configureAction() {
         const actionNames = Object.getOwnPropertyNames(Object.getPrototypeOf(this.source));
-        for (let actionName of actionNames) {
+        for (const actionName of actionNames) {
             const action = (this.source as any)[actionName].bind(this);
             const isSync = action.constructor.name !== 'AsyncFunction';
 

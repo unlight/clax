@@ -9,7 +9,7 @@ export function connect<P = any, S = any>(component: React.ComponentClass, store
 
     const magicalStores = storeSourceClasses.map(storeSourceClass => storeManager.makeStoreFrom(storeSourceClass));
     const storeProperties = {};
-    for (let [storeSourceClass, magicalStore] of zip(storeSourceClasses, magicalStores)) {
+    for (const [storeSourceClass, magicalStore] of zip(storeSourceClasses, magicalStores)) {
         if (!storeSourceClass) {
             throw new TypeError(`Expecting non-nullable storeSourceClass`);
         }
@@ -21,13 +21,13 @@ export function connect<P = any, S = any>(component: React.ComponentClass, store
     return class extends React.Component<P, S> {
 
         componentDidMount() {
-            for (let magicalStore of magicalStores) {
+            for (const magicalStore of magicalStores) {
                 magicalStore.notifier.addListener(this.onStoreUpdate);
             }
         }
 
         componentWillUnmount() {
-            for (let magicalStore of magicalStores) {
+            for (const magicalStore of magicalStores) {
                 magicalStore.notifier.removeListener(this.onStoreUpdate);
             }
         }
