@@ -9,9 +9,11 @@ import 'jest-dom/extend-expect';
 class TestComponent extends Component<any, any> {
     render() {
         return <>
+            <p data-testid="prop1">{this.props.prop1}</p>
             <a data-testid="btn" onClick={this.props.testStore.inc}>btn</a>
             <a data-testid="doubleInc" onClick={this.props.testStore.doubleInc}>doubleInc</a>
             <main id="count">{this.props.testStore.count}</main>
+            <p data-testid="children">{this.props.children}</p>
         </>;
     }
 }
@@ -60,4 +62,12 @@ it('async doubleInc', async () => {
     jest.runAllTimers();
     await Promise.resolve();
     expect(container.querySelector('#count')).toHaveTextContent('2');
+});
+
+it('props children should be omited',async () => {
+    class TestStore { }
+    const ConnectedComponent = connect(TestComponent, [TestStore]);
+    const { container, getByTestId  } = render(<ConnectedComponent prop1="Crossbow">hello</ConnectedComponent>);
+    expect(getByTestId('prop1')).toHaveTextContent('Crossbow');
+    expect(getByTestId('children')).toHaveTextContent('hello');
 });

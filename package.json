@@ -3,7 +3,7 @@
   "version": "0.0.0-dev",
   "description": "A state management library focusing on to reduce learning cost",
   "main": "dist/index.js",
-  "types": "./dist/index.d.ts",
+  "types": "index.d.ts",
   "scripts": {
     "dev": "webpack-dev-server",
     "dev2": "sh Taskfile dev2",

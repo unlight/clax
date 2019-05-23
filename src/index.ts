@@ -4,9 +4,8 @@ import storeManager from './store-manager';
 import { ConstructorFunction } from 'simplytyped';
 
 const zip = <T, V>(a: T[], b: V[]) => a.slice(0, b.length).map((x, i) => [x, b[i]]);
-const omit = <T>(obj: T, props: (keyof T)[]) => props.reduce((newObj: any, val: any) => (({ [val]: dropped, ...rest }) => rest)(newObj), obj);
 
-export function connect(component: React.ComponentClass, storeSourceClasses: ConstructorFunction<any>[]): React.ComponentClass {
+export function connect<P = any, S = any>(component: React.ComponentClass, storeSourceClasses: ConstructorFunction<any>[]): React.ComponentClass<P, S> {
 
     const magicalStores = storeSourceClasses.map(storeSourceClass => storeManager.makeStoreFrom(storeSourceClass));
     const storeProps: { [key: string]: MagicalStore | undefined } = {};
@@ -19,11 +18,7 @@ export function connect(component: React.ComponentClass, storeSourceClasses: Con
         storeProps[name] = magicalStore;
     }
 
-    return class extends React.Component {
-        constructor(props: any) {
-            super(props)
-            this.onStoreUpdate = this.onStoreUpdate.bind(this);
-        }
+    return class extends React.Component<P, S> {
 
         componentDidMount() {
             for (let magicalStore of magicalStores) {
@@ -38,10 +33,11 @@ export function connect(component: React.ComponentClass, storeSourceClasses: Con
         }
 
         render() {
-            return React.createElement(component, { ...storeProps, ...omit(this.props, ['children']) }, this.props.children);
+            const { children, ...componentProps } = this.props;
+            return React.createElement(component, { ...storeProps, ...componentProps }, children);
         }
 
-        onStoreUpdate() {
+        onStoreUpdate = () => {
             this.forceUpdate();
         }
     }
