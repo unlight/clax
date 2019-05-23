@@ -26,7 +26,7 @@ export default class MagicalStore<T = any> {
                 set: (value: any) => {
                     this.state[stateKey] = value;
                 }
-            })
+            });
         }
     }
 
@@ -36,7 +36,7 @@ export default class MagicalStore<T = any> {
             const action = (this.source as any)[actionName].bind(this);
             const isSync = action.constructor.name !== 'AsyncFunction';
 
-            (this as any)[actionName] = function(this: MagicalStore, ...args: any[]) {
+            (this as any)[actionName] = function(this: MagicalStore, ...arguments_: any[]) {
                 if (!isSync || 0 >= this.actionCallDepth) {
                     // console.debug(
                     //     'claxx:',
@@ -46,16 +46,16 @@ export default class MagicalStore<T = any> {
                     // )
                 }
 
-                let prevState;
+                let previousState;
                 if (isSync) {
                     if (0 >= this.actionCallDepth) {
-                        prevState = JSON.parse(JSON.stringify(this.state));
+                        previousState = JSON.parse(JSON.stringify(this.state));
                     }
-                    this.actionCallDepth += 1
+                    this.actionCallDepth += 1;
                 }
 
                 try {
-                    action(...args);
+                    action(...arguments_);
                 } finally {
                     if (isSync) {
                         this.actionCallDepth -= 1;
