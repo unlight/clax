@@ -5,11 +5,11 @@ class StoreManager {
 
     private readonly instances = new Map<ConstructorFor<object>, (InstanceType<ConstructorFor<any>> & MagicalStore)>();
 
-    makeStoreFrom<T extends object>(storeSourceClass: ConstructorFor<T>) {
-        let magicalStore: MagicalStore<T> & T = this.instances.get(storeSourceClass);
+    makeStoreFrom<T = object>(StoreSource: ConstructorFor<object>) {
+        let magicalStore: MagicalStore<T> & T = this.instances.get(StoreSource);
         if (magicalStore === undefined) {
-            magicalStore = <any>new MagicalStore(new storeSourceClass());
-            this.instances.set(storeSourceClass, magicalStore);
+            magicalStore = <any>new MagicalStore(new StoreSource());
+            this.instances.set(StoreSource, magicalStore);
         }
         return magicalStore;
     }

@@ -1,19 +1,17 @@
 import * as React from 'react';
 import MagicalStore from './magical-store';
 import storeManager from './store-manager';
-import { ConstructorFunction, PlainObject } from 'simplytyped';
+import { ConstructorFor } from 'simplytyped';
 
-const zip = <T, V>(a: T[], b: V[]) => a.slice(0, b.length).map((x, i) => [x, b[i]]);
+export function connect<P = any, S = any>(component: React.ComponentClass, storeSourceClasses: ConstructorFor<object>[]): React.ComponentClass<P, S> {
 
-export function connect<P = any, S = any>(component: React.ComponentClass, storeSourceClasses: ConstructorFunction<object>[]): React.ComponentClass<P, S> {
+    const storeProperties: Record<string, MagicalStore<object>> = {};
+    const magicalStores: (MagicalStore<object>)[] = [];
 
-    const magicalStores = storeSourceClasses.map(storeSourceClass => storeManager.makeStoreFrom(storeSourceClass));
-    const storeProperties: PlainObject = {};
-    for (const [storeSourceClass, magicalStore] of zip(storeSourceClasses, magicalStores)) {
-        if (!storeSourceClass) {
-            throw new TypeError(`Expecting non-nullable storeSourceClass`);
-        }
-        const className: string = storeSourceClass.name;
+    for (const StoreSource of storeSourceClasses) {
+        const magicalStore = storeManager.makeStoreFrom(StoreSource);
+        magicalStores.push(magicalStore);
+        const className: string = StoreSource.name;
         const name = className[0].toLowerCase() + className.substring(1);
         storeProperties[name] = magicalStore;
     }
