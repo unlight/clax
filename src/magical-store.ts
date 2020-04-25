@@ -19,8 +19,9 @@ export default class MagicalStore<T = any> {
 
     private configureState() {
         const stateKeys = Object.keys(this.source);
+        const sourceCopy = JSON.parse(JSON.stringify(this.source));
         for (const stateKey of stateKeys) {
-            this.state[stateKey] = JSON.parse(JSON.stringify((this.source as any)[stateKey]));
+            this.state[stateKey] = sourceCopy[stateKey];
 
             Object.defineProperty(this, stateKey, {
                 get: () => this.state[stateKey],
@@ -38,15 +39,6 @@ export default class MagicalStore<T = any> {
             const isSync = action.constructor.name !== 'AsyncFunction';
 
             (this as any)[actionName] = (...arguments_: any[]) => {
-                if (!isSync || 0 >= this.actionCallDepth) {
-                    // console.debug(
-                    //     'claxx:',
-                    //     `${isSync ? 'Sync' : 'Async'}ActionInvoked:`,
-                    //     `${this.source.constructor.name}#${actionName}`,
-                    //     // args
-                    // )
-                }
-
                 let previousState;
                 if (isSync) {
                     if (0 >= this.actionCallDepth) {
@@ -64,8 +56,6 @@ export default class MagicalStore<T = any> {
                 }
 
                 if (isSync && 0 >= this.actionCallDepth) {
-                    // const changes = diff(prevState, this.state);
-                    // console.debug('claxx:', 'StateChanged:', this.source.constructor.name, changes, storeManager.getWholeState());
                     this.notifier.notify();
                 }
             };

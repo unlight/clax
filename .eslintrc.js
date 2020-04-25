@@ -4,11 +4,7 @@ module.exports = {
         node: true,
         browser: true,
     },
-    extends: [
-        'eslint:recommended',
-        'plugin:@typescript-eslint/recommended',
-        'plugin:unicorn/recommended',
-    ],
+    extends: ['eslint:recommended', 'plugin:unicorn/recommended'],
     parser: '@typescript-eslint/parser',
     parserOptions: {
         ecmaVersion: 2019,

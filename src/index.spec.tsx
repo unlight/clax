@@ -7,8 +7,8 @@ import {
     cleanup,
     waitForElement,
     waitForDomChange,
-} from 'react-testing-library';
-import 'jest-dom/extend-expect';
+} from '@testing-library/react';
+import '@testing-library/jest-dom';
 
 class TestComponent extends React.Component<any, any> {
     render() {

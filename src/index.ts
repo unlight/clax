@@ -45,3 +45,9 @@ export function connect<P = any, S = any>(
         };
     };
 }
+
+export function store(storeSourceClasses: ConstructorFor<object>[]) {
+    return (component: any) => {
+        return connect(component, [...storeSourceClasses]);
+    };
+}

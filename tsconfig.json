@@ -6,7 +6,7 @@
     "importHelpers": true,
     "strict": true,
     "noImplicitAny": true,
-    "experimentalDecorators": false,
+    "experimentalDecorators": true,
     "emitDecoratorMetadata": false,
     "outDir": "dist",
     "pretty": true,
@@ -23,5 +23,5 @@
       "react-claxx": ["src/index"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx"]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "example/**/*.tsx"]
 }

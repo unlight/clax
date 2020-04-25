@@ -42,4 +42,8 @@ class Counter extends React.Component<PropTypes> {
 
 const ConnectedCounter = claxx.connect(Counter, [CounterStore]);
 
+@claxx.store([CounterStore])
+class DecoratedCounter extends Counter {}
+
 ReactDOM.render(<ConnectedCounter />, document.body.firstElementChild);
+ReactDOM.render(<DecoratedCounter />, document.body.firstElementChild.nextElementSibling);
