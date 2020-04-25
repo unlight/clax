@@ -46,7 +46,7 @@ npm install react-claxx
 
     const ConnectedCounter = claxx.connect(Counter, [CounterStore]);
 
-    ReactDOM.render(<ConnectedCounter />, document.body.firstElementChild); 
+    ReactDOM.render(<ConnectedCounter />, document.body.firstElementChild);
 
 ## Examples
 

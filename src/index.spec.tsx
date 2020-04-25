@@ -1,23 +1,35 @@
 import { connect } from '.';
 import * as ReactDOM from 'react-dom';
 import * as React from 'react';
-import { render, fireEvent, cleanup, waitForElement, waitForDomChange } from 'react-testing-library';
+import {
+    render,
+    fireEvent,
+    cleanup,
+    waitForElement,
+    waitForDomChange,
+} from 'react-testing-library';
 import 'jest-dom/extend-expect';
 
 class TestComponent extends React.Component<any, any> {
     render() {
-        return <>
-            <p data-testid="prop1">{this.props.prop1}</p>
-            <a data-testid="btn" onClick={this.props.testStore.inc}>btn</a>
-            <a data-testid="doubleInc" onClick={this.props.testStore.doubleInc}>doubleInc</a>
-            <main id="count">{this.props.testStore.count}</main>
-            <p data-testid="children">{this.props.children}</p>
-        </>;
+        return (
+            <>
+                <p data-testid="prop1">{this.props.prop1}</p>
+                <a data-testid="btn" onClick={this.props.testStore.inc}>
+                    btn
+                </a>
+                <a data-testid="doubleInc" onClick={this.props.testStore.doubleInc}>
+                    doubleInc
+                </a>
+                <main id="count">{this.props.testStore.count}</main>
+                <p data-testid="children">{this.props.children}</p>
+            </>
+        );
     }
 }
 
 it('connect', () => {
-    const ConnectedComponent = connect(TestComponent, [class TestStore { }]);
+    const ConnectedComponent = connect(TestComponent, [class TestStore {}]);
     expect(ConnectedComponent.prototype.componentDidMount).toBeInstanceOf(Function);
     expect(ConnectedComponent.prototype.componentWillUnmount).toBeInstanceOf(Function);
 });
@@ -45,7 +57,7 @@ it('async doubleInc', async () => {
         }
         async doubleInc() {
             this.inc();
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            await new Promise((resolve) => setTimeout(resolve, 1000));
             this.inc();
         }
     }
@@ -59,9 +71,11 @@ it('async doubleInc', async () => {
 });
 
 it('props children should be omited', async () => {
-    class TestStore { }
+    class TestStore {}
     const ConnectedComponent = connect(TestComponent, [TestStore]);
-    const { container, getByTestId  } = render(<ConnectedComponent prop1="Crossbow">hello</ConnectedComponent>);
+    const { container, getByTestId } = render(
+        <ConnectedComponent prop1="Crossbow">hello</ConnectedComponent>,
+    );
     expect(getByTestId('prop1')).toHaveTextContent('Crossbow');
     expect(getByTestId('children')).toHaveTextContent('hello');
 });

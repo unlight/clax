@@ -3,10 +3,12 @@ import MagicalStore from './magical-store';
 import storeManager from './store-manager';
 import { ConstructorFor } from 'simplytyped';
 
-export function connect<P = any, S = any>(component: React.ComponentClass, storeSourceClasses: ConstructorFor<object>[]): React.ComponentClass<P, S> {
-
+export function connect<P = any, S = any>(
+    component: React.ComponentClass,
+    storeSourceClasses: ConstructorFor<object>[],
+): React.ComponentClass<P, S> {
     const storeProperties: Record<string, MagicalStore<object>> = {};
-    const magicalStores: (MagicalStore<object>)[] = [];
+    const magicalStores: MagicalStore<object>[] = [];
 
     for (const StoreSource of storeSourceClasses) {
         const magicalStore = storeManager.makeStoreFrom(StoreSource);
@@ -17,7 +19,6 @@ export function connect<P = any, S = any>(component: React.ComponentClass, store
     }
 
     return class extends React.Component<P, S> {
-
         componentDidMount() {
             for (const magicalStore of magicalStores) {
                 magicalStore.notifier.addListener(this.onStoreUpdate);
@@ -32,11 +33,15 @@ export function connect<P = any, S = any>(component: React.ComponentClass, store
 
         render() {
             const { children, ...componentProperties } = this.props;
-            return React.createElement(component, { ...storeProperties, ...componentProperties }, children);
+            return React.createElement(
+                component,
+                { ...storeProperties, ...componentProperties },
+                children,
+            );
         }
 
         onStoreUpdate = () => {
             this.forceUpdate();
-        }
+        };
     };
 }

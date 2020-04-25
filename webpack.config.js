@@ -24,8 +24,8 @@ module.exports = {
                         useTranspileModule: true,
                         isolatedModules: true,
                         transpileOnly: true,
-                    }
-                }
+                    },
+                },
             },
             {
                 test: /index\.html$/,
@@ -33,18 +33,18 @@ module.exports = {
                     {
                         loader: 'html-loader',
                         options: {
-                            minimize: false
+                            minimize: false,
                         },
                     },
                 ],
             },
-        ]
+        ],
     },
     resolve: {
         extensions: ['.js', '.ts', '.tsx'],
         alias: {
             'react-claxx': `${__dirname}/src/index`,
-        }
+        },
     },
     devtool: 'source-map',
     devServer: {
@@ -54,6 +54,6 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: `${__dirname}/examples/counter/index.html`,
             filename: 'counter.html',
-        })
-    ]
-}
+        }),
+    ],
+};

@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "esnext",
+    "target": "es2017",
     "module": "commonjs",
     "moduleResolution": "node",
     "importHelpers": true,
@@ -17,17 +17,11 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "jsx": "react",
-    "lib": [
-      "dom",
-      "esnext",
-    ],
+    "lib": ["dom", "esnext"],
     "baseUrl": ".",
     "paths": {
       "react-claxx": ["src/index"]
     }
   },
-  "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx"
-  ]
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
 }

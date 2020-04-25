@@ -26,7 +26,7 @@ export default class MagicalStore<T = any> {
                 get: () => this.state[stateKey],
                 set: (value: any) => {
                     this.state[stateKey] = value;
-                }
+                },
             });
         }
     }

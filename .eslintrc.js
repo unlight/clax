@@ -1,41 +1,42 @@
 module.exports = {
-    'root': true,
-    'env': {
-        'node': true
+    root: true,
+    env: {
+        node: true,
+        browser: true,
     },
-    'extends': [
+    extends: [
         'eslint:recommended',
+        'plugin:@typescript-eslint/recommended',
         'plugin:unicorn/recommended',
     ],
-    'parser': '@typescript-eslint/parser',
-    'parserOptions': {
-        'ecmaVersion': 2018,
-        'sourceType': 'module',
-        'ecmaFeatures': {
-            'jsx': false,
+    parser: '@typescript-eslint/parser',
+    parserOptions: {
+        ecmaVersion: 2019,
+        sourceType: 'module',
+        ecmaFeatures: {
+            jsx: true,
         },
-        'project': 'tsconfig.json',
+        project: 'tsconfig.json',
     },
-    'plugins': [
-        'unicorn',
-        'import',
-        '@typescript-eslint/tslint',
-    ],
-    'rules': {
+    plugins: ['unicorn', 'import', '@typescript-eslint/tslint'],
+    rules: {
         'no-undef': 0,
         'no-unused-vars': 0,
-        'indent': 0,
+        indent: 0,
         'no-dupe-class-members': 0,
         'unicorn/import-index': 0,
         'unicorn/catch-error-name': 0,
         'unicorn/prefer-spread': 0,
         'import/newline-after-import': 0,
         'import/no-duplicates': 1,
-        'import/max-dependencies': [1, { 'max': 10 }],
-        'quotes': [1, 'single', { 'allowTemplateLiterals': true }],
-        'semi': [1, 'always'],
-        '@typescript-eslint/tslint/config': [1, {
-            lintFile: './tslint.json',
-        }],
-    }
+        'import/max-dependencies': [1, { max: 10 }],
+        quotes: [1, 'single', { allowTemplateLiterals: true }],
+        semi: [1, 'always'],
+        '@typescript-eslint/tslint/config': [
+            1,
+            {
+                lintFile: './tslint.json',
+            },
+        ],
+    },
 };

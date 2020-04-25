@@ -1,5 +1,4 @@
 export default class Notifier {
-
     private listeners: (() => void)[] = [];
 
     addListener(listener: () => void) {
@@ -7,7 +6,7 @@ export default class Notifier {
     }
 
     removeListener(listener: () => void) {
-        this.listeners = this.listeners.filter(x => x !== listener);
+        this.listeners = this.listeners.filter((x) => x !== listener);
     }
 
     notify() {

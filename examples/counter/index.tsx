@@ -16,7 +16,7 @@ class CounterStore {
 
     async plusMinus() {
         this.plus();
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        await new Promise((resolve) => setTimeout(resolve, 1000));
         this.minus(1);
     }
 }
@@ -26,14 +26,17 @@ interface PropTypes {
 }
 
 class Counter extends React.Component<PropTypes> {
-
     render() {
-        return <div>
-            <button onClick={() => this.props.counterStore.plus()}>+</button>
-            <span>{this.props.counterStore.count}</span>
-            <button onClick={() => this.props.counterStore.minus(1)}>-</button>
-            <button onClick={() => this.props.counterStore.plusMinus()}>-1 after one second</button>
-        </div>;
+        return (
+            <div>
+                <button onClick={() => this.props.counterStore.plus()}>+</button>
+                <span>{this.props.counterStore.count}</span>
+                <button onClick={() => this.props.counterStore.minus(1)}>-</button>
+                <button onClick={() => this.props.counterStore.plusMinus()}>
+                    -1 after one second
+                </button>
+            </div>
+        );
     }
 }
 
