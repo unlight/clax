@@ -4,11 +4,11 @@ import { PlainObject } from 'simplytyped';
 
 export default class MagicalStore<T = any> {
     public notifier = new Notifier();
+    readonly name: string = '';
 
     private readonly state: PlainObject = {};
     private actionCallDepth = 0;
     private readonly source: T = (null as unknown) as T;
-    readonly name: string = '';
 
     constructor(unknown: any) {
         const type = typeof unknown;

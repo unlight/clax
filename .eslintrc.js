@@ -14,7 +14,7 @@ module.exports = {
         },
         project: 'tsconfig.json',
     },
-    plugins: ['unicorn', 'import', '@typescript-eslint/tslint'],
+    plugins: ['unicorn', 'import', '@typescript-eslint/tslint', 'only-warn'],
     rules: {
         'no-undef': 0,
         'no-unused-vars': 0,
@@ -23,6 +23,7 @@ module.exports = {
         'unicorn/import-index': 0,
         'unicorn/catch-error-name': 0,
         'unicorn/prefer-spread': 0,
+        'unicorn/no-fn-reference-in-iterator': 0,
         'import/newline-after-import': 0,
         'import/no-duplicates': 1,
         'import/max-dependencies': [1, { max: 10 }],
@@ -35,4 +36,20 @@ module.exports = {
             },
         ],
     },
+    overrides: [
+        {
+            files: ['*.spec.{ts,tsx}', '**/testing/**/*.ts'],
+            rules: {
+                '@typescript-eslint/tslint/config': 0,
+                'consistent-return': 0,
+                'max-lines': 0,
+                '@typescript-eslint/no-explicit-any': 0,
+                '@typescript-eslint/no-floating-promises': 0,
+                '@typescript-eslint/no-non-null-assertion': 0,
+                '@typescript-eslint/camelcase': 0,
+                'import/max-dependencies': 0,
+                'sonarjs/no-duplicate-string': 0,
+            },
+        },
+    ],
 };

@@ -11,7 +11,7 @@ export function connect<P = any, S = any>(storeSourceClasses: ConstructorFor<obj
         for (const StoreSource of storeSourceClasses) {
             const magicalStore = storeManager.makeStoreFrom(StoreSource);
             magicalStores.push(magicalStore);
-            const name = magicalStore.name[0].toLowerCase() + magicalStore.name.substring(1);
+            const name = magicalStore.name[0].toLowerCase() + magicalStore.name.slice(1);
             storeProperties[name] = magicalStore;
         }
 
