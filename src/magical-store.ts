@@ -7,8 +7,20 @@ export default class MagicalStore<T = any> {
 
     private readonly state: PlainObject = {};
     private actionCallDepth = 0;
+    private readonly source: T = (null as unknown) as T;
+    readonly name: string = '';
 
-    constructor(private readonly source: T) {
+    constructor(unknown: any) {
+        const type = typeof unknown;
+        if (type === 'object') {
+            this.name = unknown.constructor.name;
+            this.source = unknown;
+        } else if (type === 'function') {
+            this.name = unknown.name;
+            this.source = new unknown();
+        } else {
+            throw new TypeError(`Unexpected argument ${type}`);
+        }
         this.configureState();
         this.configureAction();
     }

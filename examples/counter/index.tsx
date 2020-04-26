@@ -40,10 +40,15 @@ class Counter extends React.Component<PropTypes> {
     }
 }
 
-const ConnectedCounter = claxx.connect(Counter, [CounterStore]);
+const ConnectedCounter = claxx.connect([CounterStore])(Counter);
+const ConnectedCounter2 = claxx.connect([CounterStore])(Counter);
 
-@claxx.store([CounterStore])
+@claxx.connect([new CounterStore()])
 class DecoratedCounter extends Counter {}
 
 ReactDOM.render(<ConnectedCounter />, document.body.firstElementChild);
-ReactDOM.render(<DecoratedCounter />, document.body.firstElementChild.nextElementSibling);
+ReactDOM.render(<ConnectedCounter2 />, document.body.firstElementChild.nextElementSibling);
+ReactDOM.render(
+    <DecoratedCounter />,
+    document.body.firstElementChild.nextElementSibling.nextElementSibling,
+);

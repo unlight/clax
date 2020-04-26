@@ -3,15 +3,15 @@ import { ConstructorFor } from 'simplytyped';
 
 class StoreManager {
     private readonly instances = new Map<
-        ConstructorFor<object>,
+        ConstructorFor<object> | object,
         InstanceType<ConstructorFor<any>> & MagicalStore
     >();
 
-    makeStoreFrom<T = object>(StoreSource: ConstructorFor<object>) {
-        let magicalStore: MagicalStore<T> & T = this.instances.get(StoreSource);
+    makeStoreFrom<T = object>(storeSource: ConstructorFor<object> | object) {
+        let magicalStore: MagicalStore<T> & T = this.instances.get(storeSource);
         if (magicalStore === undefined) {
-            magicalStore = <any>new MagicalStore(new StoreSource());
-            this.instances.set(StoreSource, magicalStore);
+            magicalStore = <any>new MagicalStore(storeSource);
+            this.instances.set(storeSource, magicalStore);
         }
         return magicalStore;
     }
