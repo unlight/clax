@@ -16,7 +16,7 @@
     "prepush": "npm run test && npm run build",
     "tsclint": "tsc --noEmit --strict --forceConsistentCasingInFileNames --noImplicitReturns --noImplicitThis --noUnusedLocals --noUnusedParameters",
     "tsclint:w": "npm run tsclint -- --watch",
-    "eslint:w": "sh Taskfile eslint_watch",
+    "eslint:w": "watchexec -w src \"npm run eslint\"",
     "eslint": "eslint src --ext ts,tsx",
     "eslint:fix": "eslint src --ext ts,tsx --fix",
     "tslint:fix": "tslint -p tsconfig.json --fix",
@@ -102,6 +102,7 @@
     "tslint-microsoft-contrib": "^6.2.0",
     "tslint-sonarts": "^1.9.0",
     "typescript": "3.8",
+    "watchexec-bin": "^1.0.0",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.10.3"

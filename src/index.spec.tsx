@@ -29,7 +29,7 @@ class TestComponent extends React.Component<any, any> {
 }
 
 it('connect', () => {
-    const ConnectedComponent = connect(TestComponent, [class TestStore {}]);
+    const ConnectedComponent = connect([class TestStore {}])(TestComponent);
     expect(ConnectedComponent.prototype.componentDidMount).toBeInstanceOf(Function);
     expect(ConnectedComponent.prototype.componentWillUnmount).toBeInstanceOf(Function);
 });
@@ -43,7 +43,7 @@ it('connected component test action inc', async () => {
             this.count += 1;
         }
     }
-    const ConnectedComponent = connect(TestComponent, [TestStore]);
+    const ConnectedComponent = connect([TestStore])(TestComponent);
     const { container, getByTestId } = render(<ConnectedComponent />);
     fireEvent.click(getByTestId('btn'));
     expect(container).toHaveTextContent('1');
@@ -62,7 +62,7 @@ it('async doubleInc', async () => {
         }
     }
     jest.useFakeTimers();
-    const ConnectedComponent = connect(TestComponent, [TestStore]);
+    const ConnectedComponent = connect([TestStore])(TestComponent);
     const { container, getByTestId } = render(<ConnectedComponent />);
     fireEvent.click(getByTestId('doubleInc'));
     jest.runAllTimers();
@@ -72,7 +72,7 @@ it('async doubleInc', async () => {
 
 it('props children should be omited', async () => {
     class TestStore {}
-    const ConnectedComponent = connect(TestComponent, [TestStore]);
+    const ConnectedComponent = connect([TestStore])(TestComponent);
     const { container, getByTestId } = render(
         <ConnectedComponent prop1="Crossbow">hello</ConnectedComponent>,
     );

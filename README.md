@@ -44,14 +44,14 @@ npm install react-claxx
         }
     }
 
-    const ConnectedCounter = claxx.connect(Counter, [CounterStore]);
+    const ConnectedCounter = claxx.connect([CounterStore])(Counter);
 
     ReactDOM.render(<ConnectedCounter />, document.body.firstElementChild);
 
 ### Decorator
 
 ```ts
-@claxx.store([CounterStore])
+@claxx.connect([CounterStore])
 class Counter extends React.Component<PropTypes> {
     render() {
         return (
